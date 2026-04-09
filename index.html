@@ -82,7 +82,8 @@ Any use of this code without the permission of creators is not permitted.
                     <p>The RunKumbh Marathon is an initiative by the NCC cadets of RVITM College to promote fitness, discipline, and community spirit among students and the general public.</p>
                     <p>This year's marathon will feature race categories for both men and women. All proceeds will go towards supporting NCC activities and social causes.</p>
                     <div class="countdown" data-aos="fade-up" data-aos-delay="200">
-                        <!-- <h3>Event Starts In:</h3>
+                        <!-- CHANGE 4: Uncommented and activated the countdown timer -->
+                        <h3>Event Starts In:</h3>
                         <div class="countdown-timer">
                             <div class="countdown-item">
                                 <span id="days">00</span>
@@ -100,7 +101,7 @@ Any use of this code without the permission of creators is not permitted.
                                 <span id="seconds">00</span>
                                 <small>Seconds</small>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <div class="about-image" data-aos="fade-left">
@@ -162,6 +163,16 @@ Any use of this code without the permission of creators is not permitted.
                         <!--
                         <img src="images/marathon-route.png" alt="Marathon Route">
                         -->
+
+                        <!-- CHANGE 6: Added Google Maps embed of RVITM College area as route map -->
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.018139591576!2d77.575111!3d12.873027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6b0b0b0b0b0b%3A0x0!2zMTLCsDUyJzIyLjkiTiA3N8KwMzQnMzQuNCJF!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" 
+                            width="100%" 
+                            height="400" 
+                            style="border:0; border-radius:10px;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
                     </div>
                     <div class="route-details" data-aos="fade-left">
                         <h3>Start/Finish Point</h3>
@@ -196,15 +207,18 @@ Any use of this code without the permission of creators is not permitted.
     <section class="contact section-offset" id="contact">
         <div class="container">
             <h2 data-aos="fade-up">Contact Us</h2>
-            <p><i class="fas fa-phone"></i> +91 8660679651 </p>
-            <p><i class="fas fa-phone"></i> +91 7406957769 </p>
-            <p><i class="fas fa-phone"></i> +91 8197878811 </p>
             <div class="contact-content">
                 <div class="contact-info" data-aos="fade-right">
                     <h3>Event Organizers</h3>
                     <p><i class="fas fa-users"></i> NCC Cadets, RVITM College</p>
                     <p><i class="fas fa-map-marker-alt"></i> R.V. Institute of Technology and Management, Bangalore</p>
                     <p><i class="fas fa-envelope"></i> sports.rvitm@rvei.edu.in</p>
+
+                    <!-- CHANGE 5: Moved phone numbers under their own "Contact Us" h3 subheading -->
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-phone"></i> +91 8660679651 </p>
+                    <p><i class="fas fa-phone"></i> +91 7406957769 </p>
+                    <p><i class="fas fa-phone"></i> +91 8197878811 </p>
                     
                     <div class="social-media">
                         <a href="https://www.facebook.com/RVITMblr/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
@@ -261,6 +275,36 @@ Any use of this code without the permission of creators is not permitted.
     AOS.init(); // ✅ This starts the scroll animations
 </script>
 <script src="script.js"></script>
+
+<!-- CHANGE 4: Countdown timer script - counts down to 31 May 2025 6:30 AM -->
+<script>
+    function updateCountdown() {
+        const eventDate = new Date('May 31, 2025 06:30:00').getTime();
+        const now = new Date().getTime();
+        const timeLeft = eventDate - now;
+
+        if (timeLeft <= 0) {
+            document.getElementById('days').textContent = '00';
+            document.getElementById('hours').textContent = '00';
+            document.getElementById('minutes').textContent = '00';
+            document.getElementById('seconds').textContent = '00';
+            return;
+        }
+
+        const days    = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours   = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent    = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent   = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+</script>
 
 <!-- Image Popup Modal -->
 <div id="img-modal" class="img-modal">

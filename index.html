@@ -13,7 +13,7 @@ Any use of this code without the permission of creators is not permitted.
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunKumbh 2025 - NCC RVITM Marathon</title>
+    <title>RunKumbh 2026 - NCC RVITM Marathon</title>
     <link rel="stylesheet"
     media="screen and (orientation:landscape)"
     href="style.css">
@@ -63,13 +63,11 @@ Any use of this code without the permission of creators is not permitted.
         </div>
 
         <!-- CHANGE 1: Removed the three animated runner GIFs that were moving across the screen -->
-        <!--
         <div class="floating-runners">
             <img src="images/runner1.gif" alt="Runner" class="runner runner1">
             <img src="images/runner2.gif" alt="Runner" class="runner runner2">
             <img src="images/runner3.gif" alt="Runner" class="runner runner3">
         </div>
-        -->
 
     </section>
 
@@ -275,36 +273,6 @@ Any use of this code without the permission of creators is not permitted.
     AOS.init(); // ✅ This starts the scroll animations
 </script>
 <script src="script.js"></script>
-
-<!-- CHANGE 4: Countdown timer script - counts down to 31 May 2025 6:30 AM -->
-<script>
-    function updateCountdown() {
-        const eventDate = new Date('May 31, 2025 06:30:00').getTime();
-        const now = new Date().getTime();
-        const timeLeft = eventDate - now;
-
-        if (timeLeft <= 0) {
-            document.getElementById('days').textContent = '00';
-            document.getElementById('hours').textContent = '00';
-            document.getElementById('minutes').textContent = '00';
-            document.getElementById('seconds').textContent = '00';
-            return;
-        }
-
-        const days    = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours   = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-        document.getElementById('days').textContent    = String(days).padStart(2, '0');
-        document.getElementById('hours').textContent   = String(hours).padStart(2, '0');
-        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-</script>
 
 <!-- Image Popup Modal -->
 <div id="img-modal" class="img-modal">

@@ -8,7 +8,7 @@ Any use of this code without the permission of creators is not permitted.
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RunKumbh 2025 - NCC RVITM Marathon</title>
+  <title>RunKumbh 2026 - NCC RVITM Marathon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Abril+Fatface&display=swap" rel="stylesheet">
@@ -249,7 +249,11 @@ Any use of this code without the permission of creators is not permitted.
     .event-details .section-label { color:var(--coral); }
     .event-details .section-label .dot { background:var(--coral); }
     .event-details .section-title span { color:var(--coral); }
-    .cards-row { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .cards-row { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .ecard-4 { background:linear-gradient(145deg,rgba(76,201,240,0.12),rgba(6,214,160,0.1)); border:1px solid rgba(76,201,240,0.25); }
+    .ecard-4 .ecard-glow { background:var(--sky); }
+    .ecard-4 .ecard-icon { color:var(--sky); }
+    .ecard-4 ul li::before { content:'✦'; font-size:0.75rem; flex-shrink:0; margin-top:2px; }
     .ecard {
       border-radius:20px; padding:32px 28px;
       position:relative; overflow:hidden; transition:transform 0.3s;
@@ -419,10 +423,94 @@ Any use of this code without the permission of creators is not permitted.
     .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.65s ease, transform 0.65s ease; }
     .reveal.visible { opacity:1; transform:translateY(0); }
 
+    /* ── HAMBURGER ── */
+    .burger {
+      display:none;
+      flex-direction:column;
+      gap:5px;
+      cursor:none;
+      z-index:600;
+      padding:4px;
+    }
+    .burger span {
+      display:block;
+      width:26px; height:2.5px;
+      background:var(--white);
+      border-radius:4px;
+      transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), opacity 0.25s, background 0.25s;
+      transform-origin: center;
+    }
+    .burger.open span:nth-child(1) { transform:translateY(7.5px) rotate(45deg); background:var(--coral); }
+    .burger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .burger.open span:nth-child(3) { transform:translateY(-7.5px) rotate(-45deg); background:var(--coral); }
+
+    /* Mobile drawer */
+    .mobile-menu {
+      display:none;
+      position:fixed;
+      top:0; left:0; right:0; bottom:0;
+      z-index:499;
+      background:rgba(1,15,25,0.97);
+      backdrop-filter:blur(20px);
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:0;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 0.35s ease;
+    }
+    .mobile-menu.open {
+      opacity:1;
+      pointer-events:all;
+    }
+    .mobile-menu a {
+      display:block;
+      font-family:'Righteous',cursive;
+      font-size:2rem;
+      letter-spacing:0.08em;
+      text-decoration:none;
+      color:rgba(254,254,254,0.7);
+      padding:14px 0;
+      width:100%;
+      text-align:center;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      transition:color 0.25s, transform 0.25s;
+      transform:translateY(16px);
+      opacity:0;
+      transition:color 0.25s, transform 0.4s ease, opacity 0.4s ease;
+    }
+    .mobile-menu.open a {
+      transform:translateY(0);
+      opacity:1;
+    }
+    .mobile-menu.open a:nth-child(1) { transition-delay:0.05s; }
+    .mobile-menu.open a:nth-child(2) { transition-delay:0.10s; }
+    .mobile-menu.open a:nth-child(3) { transition-delay:0.15s; }
+    .mobile-menu.open a:nth-child(4) { transition-delay:0.20s; }
+    .mobile-menu.open a:nth-child(5) { transition-delay:0.25s; }
+    .mobile-menu.open a:nth-child(6) { transition-delay:0.30s; }
+    .mobile-menu a:hover { color:var(--yellow); transform:translateY(-2px); }
+    .mobile-menu-register {
+      margin-top:28px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:linear-gradient(135deg,var(--coral),var(--coral-dark)) !important;
+      color:var(--white) !important;
+      border-radius:100px !important;
+      padding:14px 32px !important;
+      font-size:1rem !important;
+      border-bottom:none !important;
+      width:auto !important;
+    }
+
     /* ── RESPONSIVE ── */
     @media(max-width:880px) {
       nav { padding:14px 20px; }
       .nav-links { display:none; }
+      .burger { display:flex; }
+      .mobile-menu { display:flex; }
       section { padding:64px 6vw; }
       .about-grid,.route-grid,.contact-grid,.cards-row,.footer-grid { grid-template-columns:1fr; }
       .hero-sun { display:none; }
@@ -471,7 +559,26 @@ Any use of this code without the permission of creators is not permitted.
     <li><a href="#registration">Moments</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <!-- Hamburger button (visible on mobile only) -->
+  <div class="burger" id="burger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </nav>
+
+<!-- Mobile full-screen menu drawer -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#home"         onclick="closeMenu()">Home</a>
+  <a href="#about"        onclick="closeMenu()">About</a>
+  <a href="#event-detail" onclick="closeMenu()">Event Details</a>
+  <a href="#route"        onclick="closeMenu()">Route Map</a>
+  <a href="#registration" onclick="closeMenu()">Moments</a>
+  <a href="#contact"      onclick="closeMenu()">Contact</a>
+  <a href="YOUR_GOOGLE_FORM_LINK" target="_blank" class="mobile-menu-register" onclick="closeMenu()">
+    <i class="fas fa-pencil-alt"></i> Register Now
+  </a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -502,18 +609,20 @@ Any use of this code without the permission of creators is not permitted.
   </div>
 
   <div class="hero-content">
-    <div class="hero-badge">☀ Summer · 🌧 Monsoon · NCC RVITM 2025</div>
+    <div class="hero-badge">☀ Summer · 🌧 Monsoon · NCC RVITM 2026</div>
     <h1 class="hero-title">
       <span class="line-1">Run</span>
       <span class="line-2">Kumbh</span>
     </h1>
     <p class="hero-tagline">Chase the sun. Dance in the rain. Run your story.</p>
     <div class="hero-meta">
-      <span class="hero-date-pill"><i class="fas fa-calendar-alt"></i> Saturday, 31 May 2025</span>
+      <!-- CHANGE 2: Updated date to 30 May 2026 -->
+      <span class="hero-date-pill"><i class="fas fa-calendar-alt"></i> Saturday, 30 May 2026</span>
       <span class="hero-org">NCC Cadets · RVITM College, Bangalore</span>
     </div>
     <div class="hero-buttons">
-      <a href="#registration" class="btn btn-coral"><i class="fas fa-images"></i> View Moments</a>
+      <!-- CHANGE 1: Replaced "View Moments" with "Click here to register" — replace YOUR_GOOGLE_FORM_LINK with actual Google Form URL -->
+      <a href="YOUR_GOOGLE_FORM_LINK" target="_blank" class="btn btn-coral"><i class="fas fa-pencil-alt"></i> Click here to register</a>
       <a href="#event-detail" class="btn btn-teal"><i class="fas fa-running"></i> Event Details</a>
     </div>
   </div>
@@ -595,6 +704,20 @@ Any use of this code without the permission of creators is not permitted.
         <li>Certificate of participation</li>
       </ul>
     </div>
+    <!-- CHANGE 3: Added Registration card -->
+    <div class="ecard ecard-4 reveal">
+      <div class="ecard-glow"></div>
+      <div class="ecard-icon"><i class="fas fa-id-card"></i></div>
+      <h3>Registration — ₹350</h3>
+      <ul>
+        <li><i class="fas fa-tshirt" style="color:var(--sky);margin-right:6px;"></i> T-Shirt</li>
+        <li><i class="fas fa-medal" style="color:var(--yellow);margin-right:6px;"></i> Medal</li>
+        <li><i class="fas fa-utensils" style="color:var(--teal);margin-right:6px;"></i> Refreshments</li>
+      </ul>
+      <a href="YOUR_GOOGLE_FORM_LINK" target="_blank" class="btn btn-coral" style="margin-top:20px; font-size:0.72rem; padding:10px 20px;">
+        <i class="fas fa-pencil-alt"></i> Register Now
+      </a>
+    </div>
   </div>
 </section>
 
@@ -621,7 +744,8 @@ Any use of this code without the permission of creators is not permitted.
       <ul>
         <li><i class="fas fa-tint"></i> Water stations along the route</li>
         <li><i class="fas fa-first-aid"></i> Medical aid stations along the route</li>
-        <li><i class="fas fa-coins"></i> Coin collection station along the route</li>
+        <!-- CHANGE 5: Replaced coin collection point with RFID checkpoint info -->
+        <li><i class="fas fa-wifi"></i> Uses RFID to check whether or not the runner has reached the checkpoint</li>
       </ul>
     </div>
   </div>
@@ -675,6 +799,8 @@ Any use of this code without the permission of creators is not permitted.
       <img src="images/rvitm-logo-w.png" alt="RVITM Logo">
       <p>Promoting fitness and discipline through sports. Organised by NCC Cadets of RVITM College, Bangalore.</p>
     </div>
+    <!-- CHANGE 4: Removed Quick Links section -->
+    <!--
     <div class="footer-col">
       <h4>Quick Links</h4>
       <ul>
@@ -686,6 +812,7 @@ Any use of this code without the permission of creators is not permitted.
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
+    -->
     <div class="footer-col">
       <h4>Organised By</h4>
       <div class="footer-logos">
@@ -695,7 +822,7 @@ Any use of this code without the permission of creators is not permitted.
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2025 RunKumbh Marathon — NCC RVITM College. All Rights Reserved.</p>
+    <p>&copy; 2026 RunKumbh Marathon — NCC RVITM College. All Rights Reserved.</p>
     <div class="season-pills">
       <span class="pill pill-summer">☀ Summer</span>
       <span class="pill pill-monsoon">🌧 Monsoon</span>
@@ -711,6 +838,27 @@ Any use of this code without the permission of creators is not permitted.
 </div>
 
 <script>
+// ── Hamburger Menu ──
+const burger     = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobile-menu');
+
+function closeMenu() {
+  burger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+burger.addEventListener('click', () => {
+  const isOpen = burger.classList.toggle('open');
+  mobileMenu.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+// Close menu on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeMenu();
+});
+
 // ── Custom Cursor ──
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
@@ -777,7 +925,7 @@ setInterval(() => {
 
 // ── Countdown ──
 function tick() {
-  const t=new Date('May 31, 2025 06:30:00').getTime()-Date.now();
+  const t=new Date('May 30, 2026 06:30:00').getTime()-Date.now();
   if(t<=0){['days','hours','minutes','seconds'].forEach(id=>document.getElementById(id).textContent='00');return;}
   document.getElementById('days').textContent    = String(Math.floor(t/86400000)).padStart(2,'0');
   document.getElementById('hours').textContent   = String(Math.floor(t%86400000/3600000)).padStart(2,'0');
